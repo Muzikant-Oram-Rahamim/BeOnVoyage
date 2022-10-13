@@ -1,0 +1,68 @@
+<resources>
+
+    <!-- PlaceHolders -->
+    <string name="place_holder">חלון טקסט</string>
+
+    <!-- Global -->
+    <string name="app_name">דוגיסיטר</string>
+    <string name="hello_text">ברוכים הבאים לאפליקציית דוגיסיטר</string>
+    <string name="navigation_drawer_open">פתח תפריט ניווט</string>
+    <string name="navigation_drawer_close">סגור תפריט ניווט</string>
+    <string name="signup">הרשמה</string>
+    <string name="signin">התחברות</string>
+    <string name="my_account">המשתמש שלי</string>
+    <string name="email">אימייל</string>
+    <string name="password">סיסמה</string>
+    <string name="confirm_password">אימות סיסמה</string>
+    <string name="small">קטן</string>
+    <string name="medium">בינוני</string>
+    <string name="large">גדול</string>
+    <string name="male">זכר</string>
+    <string name="female">נקבה</string>
+
+    <!-- Main Menu -->
+    <string name="feed">מודעות</string>
+    <string name="new_post">פרסום מודעה</string>
+    <string name="articles">מאמרים</string>
+    <string name="user_interface">משתמש</string>
+    <string name="signout">התנתקות</string>
+
+    <!-- My Account Fragment -->
+    <string name="change_password">שינוי סיסמה</string>
+    <string name="me_and_pet">אני וחיית המחמד</string>
+    <string name="first_name">שם פרטי</string>
+    <string name="last_name">שם משפחה</string>
+    <string name="phone">טלפון</string>
+    <string name="pet_name">שם חיית המחמד</string>
+    <string name="pet_age">גיל חיית המחמד</string>
+    <string name="pet_gender">מין חיית המחמד</string>
+    <string name="pet_size">גודל חיית המחמד</string>
+    <string name="update">עדכון</string>
+
+    <!-- New Post Fragment -->
+    <string name="add_picture">הוספת תמונה</string>
+    <string name="post">פרסום</string>
+
+    <!-- Chat Fragment -->
+    <string name="chat">צ\'אט</string>
+    <string name="message_here">פה רושמים את ההודעה</string>
+    <string name="send_message">שליחה</string>
+
+    <!-- Single Feed Item -->
+    <string-array name="pets">
+        <item>כלב</item>
+        <item>חתול</item>
+        <item>תוכי</item>
+        <item>נחש</item>
+    </string-array>
+    <string-array name="pet_genders">
+        <item>זכר</item>
+        <item>נקבה</item>
+    </string-array>
+    <string-array name="pet_sizes">
+        <item>קטן</item>
+        <item>בינוני</item>
+        <item>גדול</item>
+    </string-array>
+    <string name="post_description">פה רושמים את המודעה</string>
+</resources>

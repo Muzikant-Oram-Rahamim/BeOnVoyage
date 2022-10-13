@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/feed"
+            android:icon="@drawable/ic_launcher_background"
+            android:title="@string/feed"
+            android:checked="true" />
+        <item
+            android:id="@+id/new_post"
+            android:icon="@drawable/ic_launcher_background"
+            android:title="@string/new_post" />
+        <item
+            android:id="@+id/chat_nav"
+            android:title="@string/chat"
+            android:icon="@drawable/ic_launcher_background" />
+        <item
+            android:id="@+id/my_account_nav"
+            android:title="@string/my_account"
+            android:icon="@drawable/ic_launcher_background" />
+        <item
+            android:id="@+id/signin_nav"
+            android:title="@string/signin"
+            android:icon="@drawable/ic_launcher_background" />
+        <item
+            android:id="@+id/signup_nav"
+            android:title="@string/signup"
+            android:icon="@drawable/ic_launcher_background" />
+        <item
+            android:id="@+id/signout"
+            android:title="@string/signout"
+            android:icon="@drawable/ic_launcher_background" />
+    </group>
+
+<!--    <group-->
+<!--        android:checkableBehavior="single" >-->
+<!--        <item-->
+<!--            android:title="@string/user_interface" >-->
+<!--            <menu>-->
+<!--                <item-->
+<!--                    android:id="@+id/my_account_nav"-->
+<!--                    android:title="@string/my_account"-->
+<!--                    android:icon="@drawable/ic_launcher_background" />-->
+<!--                <item-->
+<!--                    android:id="@+id/signup_nav"-->
+<!--                    android:title="@string/signup"-->
+<!--                    android:icon="@drawable/ic_launcher_background" />-->
+<!--                <item-->
+<!--                    android:id="@+id/signin_nav"-->
+<!--                    android:title="@string/signin"-->
+<!--                    android:icon="@drawable/ic_launcher_background" />-->
+<!--                <item-->
+<!--                    android:id="@+id/signout"-->
+<!--                    android:title="@string/signout"-->
+<!--                    android:icon="@drawable/ic_launcher_background" />-->
+<!--            </menu>-->
+<!--        </item>-->
+
+<!--    </group>-->
+</menu>
