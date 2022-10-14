@@ -64,4 +64,5 @@
         <item>Medium</item>
         <item>Large</item>
     </string-array>
+    <string name="take_photo">take photo</string>
 </resources>

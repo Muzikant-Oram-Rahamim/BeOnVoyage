@@ -1,14 +1,20 @@
 package com.example.myapplication;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -20,6 +26,10 @@ import com.google.android.material.textfield.TextInputEditText;
  * create an instance of this fragment.
  */
 public class SignupFragment extends Fragment {
+
+    final int CAMERA_REQUEST=1;
+    ImageView imageV;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,17 +65,44 @@ public class SignupFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        imageV.findViewById(R.id.profile_image);
+        Button takePhoto = null;
+        takePhoto.findViewById(R.id.take_photo);
+
+        takePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent;
+                intent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent,CAMERA_REQUEST);
+            }
+        });
+
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==CAMERA_REQUEST && resultCode==RESULT_OK)
+        {
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            imageV.setImageBitmap(bitmap);
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_signup, container, false);
+
+
 
         // Elements
         TextInputEditText emailField = view.findViewById(R.id.signup_email);

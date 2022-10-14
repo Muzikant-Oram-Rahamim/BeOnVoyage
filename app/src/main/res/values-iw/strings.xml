@@ -65,4 +65,6 @@
         <item>גדול</item>
     </string-array>
     <string name="post_description">פה רושמים את המודעה</string>
+    <string name="take_photo">צלם תמונה</string>
+
 </resources>
