@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -78,7 +79,8 @@ public class MyAccountFragment extends Fragment {
         TextInputEditText passwordValidateField = view.findViewById(R.id.my_account_validate_password);
         TextInputEditText firstnameField = view.findViewById(R.id.my_account_firstname);
         TextInputEditText lastnameField = view.findViewById(R.id.my_account_lastname);
-
+        TextInputEditText detailsField = view.findViewById(R.id.details);
+        CheckBox isGuide = view.findViewById(R.id.is_guide);
 
         Button updateButton = view.findViewById(R.id.my_account_button);
 
@@ -96,6 +98,9 @@ public class MyAccountFragment extends Fragment {
             }
 
         }
+        if (isGuide.isChecked()) {
+            detailsField.setVisibility(View.VISIBLE);
+        }
 
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,14 +112,14 @@ public class MyAccountFragment extends Fragment {
                         System.out.println("Passwords don't match");
                         Toast.makeText(getActivity(), "Passwords don't match", Toast.LENGTH_SHORT).show();
                     } else {
-                        newUserData.put("password", passwordField.getEditableText().toString());
+                        newUserData.put("Password", passwordField.getEditableText().toString());
                     }
                 }
                 if (!firstnameField.getEditableText().toString().equals("")) {
-                    newUserData.put("firstname", firstnameField.getEditableText().toString());
+                    newUserData.put("First name", firstnameField.getEditableText().toString());
                 }
                 if (!lastnameField.getEditableText().toString().equals("")) {
-                    newUserData.put("lastname", lastnameField.getEditableText().toString());
+                    newUserData.put("Last name", lastnameField.getEditableText().toString());
                 }
 
                 

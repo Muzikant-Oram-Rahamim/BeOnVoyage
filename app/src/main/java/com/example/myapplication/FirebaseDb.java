@@ -73,7 +73,7 @@ public class FirebaseDb {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.getData() != null && documentSnapshot.getData().get("email").equals(email)) {
+                        if (documentSnapshot.getData() != null && documentSnapshot.getData().get("Email").equals(email)) {
                             callback.foundUser(documentSnapshot.getData());
                         } else {
                             callback.foundUser(documentSnapshot.getData());
@@ -138,7 +138,7 @@ public class FirebaseDb {
                 if (foundUser == null || foundUser.isEmpty()) {
                     callbacks.onSignInFailed("Could not find user");
                 } else {
-                    if (!foundUser.get("password").equals(password)) {
+                    if (!foundUser.get("Password").equals(password)) {
                         callbacks.onSignInFailed("Wrong password");
                     } else {
                         currentUser = foundUser;
@@ -234,7 +234,7 @@ public class FirebaseDb {
 
     private void createNewChat(String otherUser, FirebaseCallbacks callbacks) {
         Map<String, Object> chatProperties = new HashMap<>();
-        chatProperties.put("contacts", Arrays.asList(currentUser.get("email").toString(), otherUser));
+        chatProperties.put("contacts", Arrays.asList(currentUser.get("Email").toString(), otherUser));
         chatProperties.put("last_message_date", new Timestamp(System.currentTimeMillis()));
         chatProperties.put("messages", new ArrayList<Map<String, Object>>());
         db.collection("chats")
@@ -249,7 +249,7 @@ public class FirebaseDb {
 
     public void checkChatBetweenUsers(String otherUser, FirebaseCallbacks callbacks) {
         db.collection("chats")
-                .whereArrayContains("contacts", currentUser.get("email").toString())
+                .whereArrayContains("contacts", currentUser.get("Email").toString())
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -289,7 +289,7 @@ public class FirebaseDb {
     public void addNewMessage(String otherUserEmail, String message, FirebaseCallbacks callbacks) {
         Map<String, Object> messageObj = new HashMap<>();
         messageObj.put("message", message);
-        messageObj.put("sender", currentUser.get("email").toString());
+        messageObj.put("sender", currentUser.get("Email").toString());
         messageObj.put("timestamp", new Timestamp(System.currentTimeMillis()));
         db.collection("chats")
                 .document(lastChatID)
@@ -304,7 +304,7 @@ public class FirebaseDb {
 
     public void listenForNewMessages(String otherUserEmail, FirebaseCallbacks callbacks) {
         Query query = db.collection("chats")
-                .whereArrayContains("contacts", currentUser.get("email").toString());
+                .whereArrayContains("contacts", currentUser.get("Email").toString());
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {

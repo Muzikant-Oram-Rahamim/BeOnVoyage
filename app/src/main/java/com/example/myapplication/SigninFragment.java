@@ -101,8 +101,8 @@ public class SigninFragment extends Fragment {
                                 System.out.println("Signed In");
 
                                 Map<String, String> creds = new HashMap<>();
-                                creds.put("email", emailField.getEditableText().toString());
-                                creds.put("password", passwordField.getEditableText().toString());
+                                creds.put("Email", emailField.getEditableText().toString());
+                                creds.put("Password", passwordField.getEditableText().toString());
 
                                 ((MainActivity)getActivity()).updateMenuOnSignIn();
 

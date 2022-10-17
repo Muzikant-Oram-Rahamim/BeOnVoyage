@@ -100,6 +100,7 @@ public class SignupFragment extends Fragment {
                             @Override
                             public void onSignIn() {
                                 System.out.println("Signed In");
+                                ((MainActivity)getActivity()).updateMenuOnSignIn();
                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                 fragmentManager
                                         .beginTransaction()

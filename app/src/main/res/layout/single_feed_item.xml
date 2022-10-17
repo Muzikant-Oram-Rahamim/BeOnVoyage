@@ -71,13 +71,7 @@
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp">
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bottom_line"
-                    android:text="@string/pet_age"
-                    android:textAlignment="center" />
+
 
                 <TextView
                     android:id="@+id/feed_item_age"
@@ -97,14 +91,7 @@
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp">
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bottom_line"
-                    app:drawableBottomCompat="@drawable/bottom_line"
-                    android:text="@string/pet_gender"
-                    android:textAlignment="center" />
+
 
                 <TextView
                     android:id="@+id/feed_item_gender"
@@ -125,14 +112,7 @@
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp">
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bottom_line"
-                    app:drawableBottomCompat="@drawable/bottom_line"
-                    android:text="@string/pet_size"
-                    android:textAlignment="center" />
+
 
                 <TextView
                     android:id="@+id/feed_item_size"

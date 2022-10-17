@@ -98,17 +98,7 @@ public class NewPostFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_new_post, container, false);
 
 //        Get fragment's elements
-        TextInputLayout petNameLayout = view.findViewById(R.id.new_post_pet_name_layout);
-        TextInputEditText petNameField = view.findViewById(R.id.new_post_pet_name);
 
-        TextInputLayout petAgeLayout = view.findViewById(R.id.new_post_pet_age_layout);
-        TextInputEditText petAgeField = view.findViewById(R.id.new_post_pet_age);
-
-        TextInputLayout petGenderLayout = view.findViewById(R.id.new_post_pet_gender_layout);
-        AutoCompleteTextView petGenderField = view.findViewById(R.id.new_post_pet_gender);
-
-        TextInputLayout petSizeLayout = view.findViewById(R.id.new_post_pet_size_layout);
-        AutoCompleteTextView petSizeField = view.findViewById(R.id.new_post_pet_size);
 
         TextInputLayout postDescriptionLayout = view.findViewById(R.id.new_post_desc_layout);
         TextInputEditText postDescriptionField = view.findViewById(R.id.new_post_desc);
@@ -117,39 +107,10 @@ public class NewPostFragment extends Fragment {
 
         CircularProgressIndicator loader = view.findViewById(R.id.new_post_loader);
 
-        // Init pet genders dropdown
-        String[] genders = getResources().getStringArray(R.array.pet_genders);
-        ArrayAdapter<CharSequence> gendersArrayAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.pet_genders, R.layout.pet_dropdown_item);
-        petGenderField.setAdapter(gendersArrayAdapter);
-        petGenderField.setThreshold(1);
 
-        // Init pet sizes dropdown
-        String[] sizes = getResources().getStringArray(R.array.pet_genders);
-        ArrayAdapter<CharSequence> sizesArrayAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.pet_sizes, R.layout.pet_dropdown_item);
-        petSizeField.setAdapter(sizesArrayAdapter);
-        petSizeField.setThreshold(1);
 
         Map<String, Object> currentUser = FirebaseDb.getCurrentUser();
-        if (currentUser.containsKey("pet_name")) {
-            petNameField.setText(Objects.requireNonNull(currentUser.get("pet_name")).toString());
-        } else {
-            petNameField.setEnabled(true);
-        }
-        if (currentUser.containsKey("pet_age")) {
-            petAgeField.setText(Objects.requireNonNull(currentUser.get("pet_age")).toString());
-        } else {
-            petAgeField.setEnabled(true);
-        }
-        if (currentUser.containsKey("pet_gender")) {
-            petGenderField.setText(Objects.requireNonNull(currentUser.get("pet_gender")).toString(), false);
-        } else {
-            petGenderField.setEnabled(true);
-        }
-        if (currentUser.containsKey("pet_size")) {
-            petSizeField.setText(Objects.requireNonNull(currentUser.get("pet_size")).toString(), false);
-        } else {
-            petSizeField.setEnabled(true);
-        }
+
 
         // Upload image
         newPostImageView = view.findViewById(R.id.new_post_image);
@@ -171,58 +132,7 @@ public class NewPostFragment extends Fragment {
                 Map<String, Object> postData = new HashMap<>();
                 postData.put("email", FirebaseDb.getCurrentUser().get("email").toString());
                 postData.put("timestamp", new Timestamp(System.currentTimeMillis()));
-                if (petNameField.getEditableText().toString().isEmpty()) {
-                    postDescriptionLayout.setError("Required");
-                    hasErrors = true;
-                } else {
-                    postData.put("pet_name", petNameField.getEditableText().toString());
-                }
-                if (petAgeField.getEditableText().toString().isEmpty()) {
-                    petAgeLayout.setError("Required");
-                    hasErrors = true;
-                } else {
-                    postData.put("pet_age", petAgeField.getEditableText().toString());
-                }
-                if (petGenderField.getEditableText().toString().isEmpty()) {
-                    petGenderLayout.setError("Required");
-                    hasErrors = true;
-                } else {
-                    String pet_gender = petGenderField.getEditableText().toString();
-                    String pet_gender_to_save;
-                    switch (pet_gender) {
-                        case "זכר":
-                            pet_gender_to_save = "Male";
-                            break;
-                        case "נקבה":
-                            pet_gender_to_save = "Female";
-                            break;
-                        default:
-                            pet_gender_to_save = pet_gender;
-                            break;
-                    }
-                    postData.put("pet_gender", pet_gender_to_save);
-                }
-                if (petSizeField.getEditableText().toString().isEmpty()) {
-                    petSizeLayout.setError("Required");
-                } else {
-                    String pet_size = petSizeField.getEditableText().toString();
-                    String pet_size_to_save;
-                    switch (pet_size) {
-                        case "קטן":
-                            pet_size_to_save = "Small";
-                            break;
-                        case "בינוני":
-                            pet_size_to_save = "Medium";
-                            break;
-                        case "גדול":
-                            pet_size_to_save = "Large";
-                            break;
-                        default:
-                            pet_size_to_save = pet_size;
-                            break;
-                    }
-                    postData.put("pet_size", pet_size_to_save);
-                }
+
                 if (postDescriptionField.getEditableText().toString().isEmpty()) {
                     postDescriptionLayout.setError("Required");
                     hasErrors = true;
