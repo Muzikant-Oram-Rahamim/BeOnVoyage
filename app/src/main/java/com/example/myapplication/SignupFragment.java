@@ -68,8 +68,10 @@ public class SignupFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_signup, container, false);
 
         // Elements
+        TextInputEditText FnameField = view.findViewById(R.id.signup_firstname);
+        TextInputEditText LnameField = view.findViewById(R.id.signup_lastname);
         TextInputEditText emailField = view.findViewById(R.id.signup_email);
-        TextInputEditText passwordField = view.findViewById(R.id.signup_email);
+        TextInputEditText passwordField = view.findViewById(R.id.signup_password);
         TextInputEditText validatePasswordField = view.findViewById(R.id.signup_validate_password);
         CircularProgressIndicator loader = view.findViewById(R.id.signup_loader);
         Button signupButton = view.findViewById(R.id.signup_button);
