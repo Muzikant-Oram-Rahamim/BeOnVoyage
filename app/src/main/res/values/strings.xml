@@ -4,7 +4,7 @@
     <string name="place_holder">TextView</string>
 
     <!-- Global -->
-    <string name="app_name">DoggySitter</string>
+    <string name="app_name">BeOnVoyage</string>
     <string name="hello_text">Welcome to DoggySitter</string>
     <string name="navigation_drawer_open">Open Navigation</string>
     <string name="navigation_drawer_close">Close Navigation</string>
