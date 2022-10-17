@@ -92,12 +92,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.uncheckMenuItems();
         item.setChecked(true);
 
-//        FeedFragment feedFragment = (FeedFragment) fragmentManager.findFragmentByTag("feed");
-//        NewPostFragment newPostFragment = (NewPostFragment) fragmentManager.findFragmentByTag("new_post");
-//        ContactsFragment contactsFragment = (ContactsFragment) fragmentManager.findFragmentByTag("chat");
-//        SignupFragment signupFragment = (SignupFragment) fragmentManager.findFragmentByTag("signup");
-//        SigninFragment signinFragment = (SigninFragment) fragmentManager.findFragmentByTag("signup");
-//        MyAccountFragment myAccountFragment = (MyAccountFragment) fragmentManager.findFragmentByTag("signup");
 
         FeedFragment feedFragment = new FeedFragment();
         NewPostFragment newPostFragment = new NewPostFragment();
@@ -116,15 +110,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .addToBackStack("feed")
                         .commit();
                 break;
-//            case (R.id.articles):
-//                if (articlesFragment == null) {
-//                    fragmentManager
-//                            .beginTransaction()
-//                            .replace(R.id.fragment_container, articlesFragment)
-//                            .addToBackStack("articles")
-//                            .commit();
-//                }
-//                break;
             case (R.id.new_post):
                 if (firebaseDb.isSignedIn()) {
                     fragmentManager

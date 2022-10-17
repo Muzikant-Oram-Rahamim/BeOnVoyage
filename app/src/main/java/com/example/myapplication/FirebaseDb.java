@@ -88,7 +88,7 @@ public class FirebaseDb {
                 });
     }
 
-    public boolean signUp(String email, String password, String validatePassword, FirebaseCallbacks callback) {
+    public boolean signUp(String firstN, String lastN, String email, String password, String validatePassword, FirebaseCallbacks callback) {
 
         if (!password.equals(validatePassword)) {
             return false;
@@ -101,8 +101,10 @@ public class FirebaseDb {
                     callback.onSignup(true);
                 } else {
                     Map<String, Object> user = new HashMap<>();
-                    user.put("email", email);
-                    user.put("password", password);
+                    user.put("First name", firstN);
+                    user.put("Last name", lastN);
+                    user.put("Email", email);
+                    user.put("Password", password);
 
                     db.collection("users")
                             .document(email)

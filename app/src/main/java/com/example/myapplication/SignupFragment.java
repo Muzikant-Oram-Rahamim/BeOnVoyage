@@ -81,7 +81,10 @@ public class SignupFragment extends Fragment {
             public void onClick(View view) {
                 loader.setVisibility(View.VISIBLE);
                 FirebaseDb firebaseDb = FirebaseDb.getInstance();
-                boolean status = firebaseDb.signUp(
+                boolean status;
+                status = firebaseDb.signUp(
+                        FnameField.getEditableText().toString(),
+                        LnameField.getEditableText().toString(),
                         emailField.getEditableText().toString(),
                         passwordField.getEditableText().toString(),
                         validatePasswordField.getEditableText().toString(),
