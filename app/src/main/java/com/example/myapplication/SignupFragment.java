@@ -103,7 +103,7 @@ public class SignupFragment extends Fragment {
                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                 fragmentManager
                                         .beginTransaction()
-                                        .replace(R.id.fragment_container, new FeedFragment())
+                                        .replace(R.id.fragment_container, new MyAccountFragment())
                                         .commit();
                                 fragmentManager.popBackStackImmediate();
                             }

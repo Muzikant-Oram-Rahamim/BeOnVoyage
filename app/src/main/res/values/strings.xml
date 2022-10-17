@@ -14,29 +14,19 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="small">Small</string>
-    <string name="medium">Medium</string>
-    <string name="large">Large</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
 
     <!-- Main Menu -->
     <string name="feed">Feed</string>
     <string name="new_post">New Post</string>
-    <string name="articles">Articles</string>
     <string name="user_interface">User Interface</string>
     <string name="signout">Signout</string>
 
     <!-- My Account Fragment -->
     <string name="change_password">Change Password</string>
-    <string name="me_and_pet">Me &amp; My Pet</string>
+    <string name="more">More Details</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="phone">Phone</string>
-    <string name="pet_name">Pet Name</string>
-    <string name="pet_age">Pet Age</string>
-    <string name="pet_gender">Pet Gender</string>
-    <string name="pet_size">Pet Size</string>
     <string name="update">Update</string>
 
     <!-- New Post -->
@@ -65,4 +55,6 @@
         <item>Large</item>
     </string-array>
     <string name="take_photo">TAKE PHOTO</string>
+    <string name="details">details</string>
+    <string name="guide">Are you a local guide?</string>
 </resources>

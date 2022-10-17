@@ -78,23 +78,7 @@ public class MyAccountFragment extends Fragment {
         TextInputEditText passwordValidateField = view.findViewById(R.id.my_account_validate_password);
         TextInputEditText firstnameField = view.findViewById(R.id.my_account_firstname);
         TextInputEditText lastnameField = view.findViewById(R.id.my_account_lastname);
-        TextInputEditText phoneField = view.findViewById(R.id.my_account_phone);
-        TextInputEditText petNameField = view.findViewById(R.id.my_account_pet_name);
-        TextInputEditText petAgeField = view.findViewById(R.id.my_account_pet_age);
-        AutoCompleteTextView petGenderField = view.findViewById(R.id.my_account_pet_gender);
-        AutoCompleteTextView petSizeField = view.findViewById(R.id.my_account_pet_size);
 
-        // Init pet genders dropdown
-        String[] genders = getResources().getStringArray(R.array.pet_genders);
-        ArrayAdapter<CharSequence> gendersArrayAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.pet_genders, R.layout.pet_dropdown_item);
-        petGenderField.setAdapter(gendersArrayAdapter);
-        petGenderField.setThreshold(1);
-
-        // Init pet sizes dropdown
-        String[] sizes = getResources().getStringArray(R.array.pet_genders);
-        ArrayAdapter<CharSequence> sizesArrayAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.pet_sizes, R.layout.pet_dropdown_item);
-        petSizeField.setAdapter(sizesArrayAdapter);
-        petSizeField.setThreshold(1);
 
         Button updateButton = view.findViewById(R.id.my_account_button);
 
@@ -104,27 +88,13 @@ public class MyAccountFragment extends Fragment {
             emailField.setText("This screen is for signed-ing users!");
         } else {
             emailField.setText((String)currentUser.get("email"));
-            if (currentUser.containsKey("firstname")) {
-                firstnameField.setText(currentUser.get("firstname").toString());
+            if (currentUser.containsKey("First name")) {
+                firstnameField.setText(currentUser.get("First name").toString());
             }
-            if (currentUser.containsKey("lastname")) {
-                lastnameField.setText(currentUser.get("lastname").toString());
+            if (currentUser.containsKey("Last name")) {
+                lastnameField.setText(currentUser.get("Last name").toString());
             }
-            if (currentUser.containsKey("phone")) {
-                phoneField.setText(currentUser.get("phone").toString());
-            }
-            if (currentUser.containsKey("pet_name")) {
-                petNameField.setText(currentUser.get("pet_name").toString());
-            }
-            if (currentUser.containsKey("pet_age")) {
-                petAgeField.setText(currentUser.get("pet_age").toString());
-            }
-            if (currentUser.containsKey("pet_gender")) {
-                petGenderField.setText(currentUser.get("pet_gender").toString(), false);
-            }
-            if (currentUser.containsKey("pet_size")) {
-                petSizeField.setText(currentUser.get("pet_size").toString(), false);
-            }
+
         }
 
         updateButton.setOnClickListener(new View.OnClickListener() {
@@ -146,21 +116,7 @@ public class MyAccountFragment extends Fragment {
                 if (!lastnameField.getEditableText().toString().equals("")) {
                     newUserData.put("lastname", lastnameField.getEditableText().toString());
                 }
-                if (!phoneField.getEditableText().toString().equals("")) {
-                    newUserData.put("phone", phoneField.getEditableText().toString());
-                }
-                if (!petNameField.getEditableText().toString().equals("")) {
-                    newUserData.put("pet_name", petNameField.getEditableText().toString());
-                }
-                if (!petAgeField.getEditableText().toString().equals("")) {
-                    newUserData.put("pet_age", petAgeField.getEditableText().toString());
-                }
-                if (!petGenderField.getEditableText().toString().equals("")) {
-                    newUserData.put("pet_gender", petGenderField.getEditableText().toString());
-                }
-                if (!petSizeField.getEditableText().toString().equals("")) {
-                    newUserData.put("pet_size", petSizeField.getEditableText().toString());
-                }
+
                 
                 FirebaseDb firebaseDb = FirebaseDb.getInstance();
                 firebaseDb.updateUserData(newUserData, new FirebaseCallbacks() {

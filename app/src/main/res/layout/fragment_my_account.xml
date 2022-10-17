@@ -27,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
+            android:background="@color/white"
             android:enabled="false"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -38,6 +39,7 @@
         android:text="@string/change_password"
         android:textAlignment="center"
         android:textSize="16sp"
+        android:background="@color/white"
         android:textStyle="bold" />
     
     <com.google.android.material.textfield.TextInputLayout
@@ -50,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
+            android:background="@color/white"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -64,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/confirm_password"
+            android:background="@color/white"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -72,9 +76,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="@string/me_and_pet"
+        android:text="@string/more"
         android:textAlignment="center"
         android:textSize="16sp"
+        android:background="@color/white"
         android:textStyle="bold" />
     
     <LinearLayout
@@ -93,7 +98,8 @@
                 android:id="@+id/my_account_firstname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/first_name"/>
+                android:hint="@string/first_name"
+                android:background="@color/white"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,25 +114,21 @@
                 android:id="@+id/my_account_lastname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/last_name"/>
+                android:hint="@string/last_name"
+                android:background="@color/white"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+    <CheckBox
+        android:id="@+id/is_guide"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/my_account_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/phone"
-            android:inputType="phone" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="@string/guide" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -137,61 +139,24 @@
             android:id="@+id/my_account_pet_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/pet_name"/>
+            android:hint="@string/details"
+            android:visibility="invisible"
+            android:background="@color/white"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/take_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:baselineAligned="false">
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/my_account_pet_age"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/pet_age"
-                android:inputType="number" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33">
-
-            <AutoCompleteTextView
-                android:id="@+id/my_account_pet_gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:hint="@string/pet_gender" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33">
-
-            <AutoCompleteTextView
-                android:id="@+id/my_account_pet_size"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:hint="@string/pet_size" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
+        android:text="@string/take_photo" >
+    </Button>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_image"
+        />
 
     <Button
         android:id="@+id/my_account_button"
@@ -209,5 +174,8 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:visibility="gone"/>
+
+
+
 
 </LinearLayout>
