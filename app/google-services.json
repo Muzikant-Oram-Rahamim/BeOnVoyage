@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "929489083358",
+    "project_id": "beonvoyage",
+    "storage_bucket": "beonvoyage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929489083358:android:b0c823137a78b96bbf5b4f",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929489083358-ebmj13tuel6cfvjud9p4jkc7vpn5ks6t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCq4PK4CqzW21S-Rso49VpccRl30HUsqvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929489083358-ebmj13tuel6cfvjud9p4jkc7vpn5ks6t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
