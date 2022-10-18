@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-//oram-changes- new try
+// oram after changes
     MaterialToolbar materialToolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
