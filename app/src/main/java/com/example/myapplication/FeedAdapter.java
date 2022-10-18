@@ -49,10 +49,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedAdapterHol
             userEmail = posts.get(position).get("Email").toString();
         }
 
-        holder.firstN.setText(posts.get(position).get("First name").toString());
+       /* holder.firstN.setText(posts.get(position).get("First name").toString());
         holder.lastN.setText(posts.get(position).get("Last name").toString());
         holder.city.setText(posts.get(position).get("City").toString());
         holder.details.setText(posts.get(position).get("Details").toString());
+
+        */
 
 
         if (firebaseDb.isSignedIn() && firebaseDb.getCurrentUser().get("Email").toString().equals(userEmail)) {
@@ -97,7 +99,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedAdapterHol
         public FeedAdapterHolder(View itemView) {
             super(itemView);
             container           = (LinearLayout)    itemView.findViewById(R.id.feed_item_container);
-           feedDetails         = (LinearLayout)    itemView.findViewById(R.id.feed_details);
+            feedDetails         = (LinearLayout)    itemView.findViewById(R.id.feed_details);
             firstN      = (TextView)        itemView.findViewById(R.id.my_account_firstname);
             lastN   = (TextView)        itemView.findViewById(R.id.my_account_lastname);
             city     = (TextView)        itemView.findViewById(R.id.post_city);
