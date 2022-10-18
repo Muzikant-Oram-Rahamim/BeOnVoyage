@@ -43,30 +43,26 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedAdapterHol
 
     @Override
     public void onBindViewHolder(@NonNull FeedAdapterHolder holder, @SuppressLint("RecyclerView") int position) {
-
-        char petGender = posts.get(position).get("pet_gender").toString().charAt(0);
-        char petSize = posts.get(position).get("pet_size").toString().charAt(0);
-
         String userEmail = "";
 
-        if (posts.get(position).get("email") != null) {
-            userEmail = posts.get(position).get("email").toString();
+        if (posts.get(position).get("Email") != null) {
+            userEmail = posts.get(position).get("Email").toString();
         }
 
-        holder.petName.setText(posts.get(position).get("pet_name").toString());
-        holder.postDesc.setText(posts.get(position).get("post_description").toString() + "\n\nClick for details.");
-        holder.feedPetAgeView.setText(posts.get(position).get("pet_age").toString());
-        holder.feedPetGenderView.setText(String.valueOf(petGender));
-        holder.feedPetSizeView.setText(String.valueOf(petSize));
+        holder.firstN.setText(posts.get(position).get("First name").toString());
+        holder.lastN.setText(posts.get(position).get("Last name").toString());
+        holder.city.setText(posts.get(position).get("City").toString());
+        holder.details.setText(posts.get(position).get("Details").toString());
 
-        if (firebaseDb.isSignedIn() && firebaseDb.getCurrentUser().get("email").toString().equals(userEmail)) {
+
+        if (firebaseDb.isSignedIn() && firebaseDb.getCurrentUser().get("Email").toString().equals(userEmail)) {
              holder.makeContact.setVisibility(View.GONE);
         }
 
         holder.makeContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String otherUserEmail = posts.get(position).get("email").toString();
+                String otherUserEmail = posts.get(position).get("Email").toString();
                 FirebaseDb firebaseDb = FirebaseDb.getInstance();
                 firebaseDb.checkChatBetweenUsers(otherUserEmail, new FirebaseCallbacks() {
                     @Override
@@ -94,19 +90,18 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedAdapterHol
     class FeedAdapterHolder extends RecyclerView.ViewHolder {
 
         LinearLayout container;
-        TextView petName, postDesc, feedPetAgeView, feedPetGenderView, feedPetSizeView;
+        TextView firstN, lastN, city, details;
         LinearLayout feedDetails;
         Button makeContact;
 
         public FeedAdapterHolder(View itemView) {
             super(itemView);
             container           = (LinearLayout)    itemView.findViewById(R.id.feed_item_container);
-            petName             = (TextView)        itemView.findViewById(R.id.feed_pet_name);
-            postDesc            = (TextView)        itemView.findViewById(R.id.feed_post_desc);
-            feedDetails         = (LinearLayout)    itemView.findViewById(R.id.feed_details);
-            feedPetAgeView      = (TextView)        itemView.findViewById(R.id.feed_item_age);
-            feedPetGenderView   = (TextView)        itemView.findViewById(R.id.feed_item_gender);
-            feedPetSizeView     = (TextView)        itemView.findViewById(R.id.feed_item_size);
+           feedDetails         = (LinearLayout)    itemView.findViewById(R.id.feed_details);
+            firstN      = (TextView)        itemView.findViewById(R.id.my_account_firstname);
+            lastN   = (TextView)        itemView.findViewById(R.id.my_account_lastname);
+            city     = (TextView)        itemView.findViewById(R.id.post_city);
+            details     = (TextView)        itemView.findViewById(R.id.post_details);
             makeContact         = (Button)          itemView.findViewById(R.id.feed_make_contact);
 
             container.setOnClickListener(new View.OnClickListener() {

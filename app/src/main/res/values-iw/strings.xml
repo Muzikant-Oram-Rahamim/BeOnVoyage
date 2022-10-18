@@ -54,9 +54,10 @@
         <item>בינוני</item>
         <item>גדול</item>
     </string-array>
-    <string name="post_description">פה רושמים את המודעה</string>
+    <string name="post_city">עיר</string>
     <string name="take_photo">צלם תמונה</string>
     <string name="details">פירוט</string>
     <string name="guide">האם אתה מדריך מקומי?</string>
     <string name="city">עיר</string>
+    <string name="post_details">פרטים נוספים</string>
 </resources>

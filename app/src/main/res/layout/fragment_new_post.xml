@@ -19,53 +19,29 @@
         android:textStyle="bold" />
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/city"
+
+    <TextView
+        android:id="@+id/post_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/city"
-        android:layout_marginTop="10dp"
-        app:errorEnabled="true"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:hint="@string/post_city"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:layout_marginBottom="20dp"
+        />
 
-        <com.google.android.material.textfield.TextInputEditText
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="5"/>
 
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/details"
+    <TextView
+        android:id="@+id/post_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/details"
-        android:layout_marginTop="10dp"
-        app:errorEnabled="true"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="5"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/new_post_image"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:scaleType="fitXY"
-        android:visibility="gone"
-        android:contentDescription="@string/place_holder"/>
-
-    <Button
-        android:id="@+id/new_post_take_picture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_picture"/>
+        android:hint="@string/post_details"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:layout_marginBottom="20dp"
+        />
 
     <Button
         android:id="@+id/new_post_publish_post"
@@ -82,5 +58,7 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:visibility="gone"/>
+
+
 
 </LinearLayout>

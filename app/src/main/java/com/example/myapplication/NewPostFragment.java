@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -46,7 +47,7 @@ public class NewPostFragment extends Fragment {
     final int CAMERA_REQUEST = 1;
     ImageView newPostImageView;
     Bitmap bitmap;
-//    private DatabaseReference root = FirebaseDatabase.getInstance().getReference("image");
+    //    private DatabaseReference root = FirebaseDatabase.getInstance().getReference("image");
     private StorageReference reference = FirebaseStorage.getInstance().getReference();
     private Uri imageUri;
 
@@ -99,19 +100,20 @@ public class NewPostFragment extends Fragment {
 
 //        Get fragment's elements
 
-        TextInputEditText detailsField = view.findViewById(R.id.details);
-        TextInputEditText cityField = view.findViewById(R.id.city);
+
+        TextView postCityField = view.findViewById(R.id.post_city);
+        TextView postDetailsField = view.findViewById(R.id.post_details);
 
         Button postButton = (Button) view.findViewById(R.id.new_post_publish_post);
 
         CircularProgressIndicator loader = view.findViewById(R.id.new_post_loader);
 
 
-
         Map<String, Object> currentUser = FirebaseDb.getCurrentUser();
-        cityField.setText(currentUser.get("City").toString());
-        detailsField.setText(currentUser.get("Details").toString());
+        postCityField.setText(currentUser.get("City").toString());
+        postDetailsField.setText(currentUser.get("Details").toString());
 
+        /*
         // Upload image
         newPostImageView = view.findViewById(R.id.new_post_image);
         Button takePictureButton = view.findViewById(R.id.new_post_take_picture);
@@ -124,6 +126,8 @@ public class NewPostFragment extends Fragment {
             }
         });
 
+         */
+
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,20 +137,7 @@ public class NewPostFragment extends Fragment {
                 postData.put("Email", FirebaseDb.getCurrentUser().get("Email").toString());
                 postData.put("timestamp", new Timestamp(System.currentTimeMillis()));
 
-                if (cityField.getEditableText().toString().isEmpty()) {
 
-                    hasErrors = true;
-                }
-                else if (detailsField.getEditableText().toString().isEmpty()){
-                    hasErrors = true;
-                } else {
-                    postData.put("City", cityField.getEditableText().toString());
-                    postData.put("Details", detailsField.getEditableText().toString());
-                }
-                if (bitmap == null) {
-                Toast.makeText(getActivity(), "Please add an image", Toast.LENGTH_SHORT).show();
-                    hasErrors = true;
-                }
                 if (!hasErrors) {
                     FirebaseDb firebaseDb = FirebaseDb.getInstance();
                     firebaseDb.addPost(postData, new FirebaseCallbacks() {
@@ -174,7 +165,8 @@ public class NewPostFragment extends Fragment {
         return view;
 
     }
-
+}
+/*
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -187,3 +179,5 @@ public class NewPostFragment extends Fragment {
 
     }
 }
+
+ */

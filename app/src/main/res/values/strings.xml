@@ -32,7 +32,7 @@
     <!-- New Post -->
     <string name="add_picture">Add Picture</string>
     <string name="post">Post</string>
-    <string name="post_description">Post Description</string>
+    <string name="post_city">City</string>
 
     <!-- Single Feed Item -->
     <string name="chat">Chat</string>
@@ -58,4 +58,5 @@
     <string name="details">details</string>
     <string name="guide">Are you a local guide?</string>
     <string name="city">city</string>
+    <string name="post_details">Details</string>
 </resources>
