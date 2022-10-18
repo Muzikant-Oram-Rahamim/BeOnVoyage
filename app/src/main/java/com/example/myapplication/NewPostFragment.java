@@ -113,20 +113,34 @@ public class NewPostFragment extends Fragment {
         postCityField.setText(currentUser.get("City").toString());
         postDetailsField.setText(currentUser.get("Details").toString());
 
-        /*
-        // Upload image
-        newPostImageView = view.findViewById(R.id.new_post_image);
-        Button takePictureButton = view.findViewById(R.id.new_post_take_picture);
-        takePictureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent galleryIntent = new Intent();
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, CAMERA_REQUEST);
-            }
-        });
+        TextView firstName = postCityField;
+        TextView lastName = postCityField;
+        firstName.setText(currentUser.get("First name").toString());
+        lastName.setText(currentUser.get("Last name").toString());
 
-         */
+        if (currentUser.containsKey("First name")) {
+            firstName.setText(Objects.requireNonNull(currentUser.get("First name")).toString());
+        } else {
+            firstName.setEnabled(true);
+        }
+        if (currentUser.containsKey("Last name")) {
+            lastName.setText(Objects.requireNonNull(currentUser.get("Last name")).toString());
+        } else {
+            lastName.setEnabled(true);
+        }
+        if (currentUser.containsKey("City")) {
+            postCityField.setText(Objects.requireNonNull(currentUser.get("City")).toString());
+        } else {
+            postCityField.setEnabled(true);
+        }
+        if (currentUser.containsKey("Details")) {
+            postDetailsField.setText(Objects.requireNonNull(currentUser.get("Details")).toString());
+        } else {
+            postDetailsField.setEnabled(true);
+        }
+
+
+
 
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,9 +148,12 @@ public class NewPostFragment extends Fragment {
                 loader.setVisibility(View.VISIBLE);
                 boolean hasErrors = false;
                 Map<String, Object> postData = new HashMap<>();
-                postData.put("Email", FirebaseDb.getCurrentUser().get("Email").toString());
                 postData.put("timestamp", new Timestamp(System.currentTimeMillis()));
-
+                postData.put("Email", FirebaseDb.getCurrentUser().get("Email").toString());
+                postData.put("First name", FirebaseDb.getCurrentUser().get("First name").toString());
+                postData.put("Last name", FirebaseDb.getCurrentUser().get("Last name").toString());
+                postData.put("City", FirebaseDb.getCurrentUser().get("City").toString());
+                postData.put("Details", FirebaseDb.getCurrentUser().get("Details").toString());
 
                 if (!hasErrors) {
                     FirebaseDb firebaseDb = FirebaseDb.getInstance();
@@ -166,18 +183,3 @@ public class NewPostFragment extends Fragment {
 
     }
 }
-/*
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 2 && requestCode == RESULT_OK && data != null) {
-            imageUri = data.getData();
-            newPostImageView.setImageURI(imageUri);
-        }
-
-
-    }
-}
-
- */

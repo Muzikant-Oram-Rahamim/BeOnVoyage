@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedAdapterHolder> {
 
@@ -45,22 +46,33 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedAdapterHol
     @Override
     public void onBindViewHolder(@NonNull FeedAdapterHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.getAdapterPosition();
+
         String userEmail = "";
 
         if (posts.get(position).get("Email") != null) {
             userEmail = posts.get(position).get("Email").toString();
         }
-        String first_name =posts.get(position).get("First name").toString();
-        String last_name = posts.get(position).get("Last name").toString();
-        String city = posts.get(position).get("City").toString();
-        String details = posts.get(position).get("Details").toString();
 
-        holder.firstN.setText(first_name);
-        holder.lastN.setText(last_name);
-        holder.city.setText(city);
-        holder.details.setText(details);
+        if (posts.get(position).get("First name") != null){
+            holder.firstN.setText(Objects.requireNonNull(posts.get(position).get("First name").toString()));
+        }
+        if (posts.get(position).get("Last name") != null){
+            holder.lastN.setText(Objects.requireNonNull(posts.get(position).get("Last name").toString()));
+        }
+        if (posts.get(position).get("City") != null){
+            holder.city.setText(Objects.requireNonNull(posts.get(position).get("City").toString()));
+        }
+        if (posts.get(position).get("Details") != null){
+            holder.details.setText(Objects.requireNonNull(posts.get(position).get("Details").toString()));
+        }
 
+
+       /*
+        holder.firstN.setText(Objects.requireNonNull(posts.get(position).get("First name").toString()));
+        holder.lastN.setText(Objects.requireNonNull(posts.get(position).get("Last name").toString()));
+        holder.city.setText(Objects.requireNonNull(posts.get(position).get("City").toString()));
+        holder.details.setText(Objects.requireNonNull(posts.get(position).get("Details").toString()));
+        */
 
 
 
@@ -107,10 +119,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedAdapterHol
             super(itemView);
             container           = (LinearLayout)    itemView.findViewById(R.id.feed_item_container);
             feedDetails         = (LinearLayout)    itemView.findViewById(R.id.feed_details);
+
             firstN      = (TextView)        itemView.findViewById(R.id.my_account_firstname);
             lastN   = (TextView)        itemView.findViewById(R.id.my_account_lastname);
             city     = (TextView)        itemView.findViewById(R.id.post_city);
             details     = (TextView)        itemView.findViewById(R.id.post_details);
+
             makeContact         = (Button)          itemView.findViewById(R.id.feed_make_contact);
 
             container.setOnClickListener(new View.OnClickListener() {
