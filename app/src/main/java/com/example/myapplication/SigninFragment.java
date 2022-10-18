@@ -104,7 +104,8 @@ public class SigninFragment extends Fragment {
                                 creds.put("Email", emailField.getEditableText().toString());
                                 creds.put("Password", passwordField.getEditableText().toString());
 
-                                ((MainActivity)getActivity()).updateMenuOnSignIn();
+                                    ((MainActivity) getActivity()).updateMenuOnSignIn();
+
 
                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                 fragmentManager

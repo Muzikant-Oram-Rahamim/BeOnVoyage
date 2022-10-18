@@ -187,6 +187,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         signOutItem.setVisible(false);
     }
 
+    public void notAGuide() {
+        MenuItem newPostItem = navigationView.getMenu().findItem(R.id.new_post);
+        MenuItem chatItem = navigationView.getMenu().findItem(R.id.chat_nav);
+        MenuItem myAccountItem = navigationView.getMenu().findItem(R.id.my_account_nav);
+        MenuItem signInItem = navigationView.getMenu().findItem(R.id.signin_nav);
+        MenuItem signUpItem = navigationView.getMenu().findItem(R.id.signup_nav);
+        MenuItem signOutItem = navigationView.getMenu().findItem(R.id.signout);
+
+        newPostItem.setVisible(false);
+        chatItem.setVisible(true);
+        myAccountItem.setVisible(true);
+        signInItem.setVisible(false);
+        signUpItem.setVisible(false);
+        signOutItem.setVisible(true);
+    }
+
+
     public void updateMenuOnSignIn() {
         MenuItem newPostItem = navigationView.getMenu().findItem(R.id.new_post);
         MenuItem chatItem = navigationView.getMenu().findItem(R.id.chat_nav);

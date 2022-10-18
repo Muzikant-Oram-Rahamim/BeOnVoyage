@@ -39,7 +39,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
     public void onBindViewHolder(@NonNull ContactsAdapterHolder holder, @SuppressLint("RecyclerView") int position) {
 
         String otherUserEmail = ((ArrayList) contacts.get(position).get("contacts")).get(0).toString();
-        if (firebaseDb.getCurrentUser().get("email").toString().equals(otherUserEmail)) {
+        if (firebaseDb.getCurrentUser().get("Email").toString().equals(otherUserEmail)) {
             otherUserEmail = ((ArrayList) contacts.get(position).get("contacts")).get(1).toString();
         }
 

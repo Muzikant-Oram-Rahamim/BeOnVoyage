@@ -83,40 +83,45 @@ public class FeedFragment extends Fragment implements FeedAdapter.onItemClick {
 
         FirebaseDb firebaseDb = FirebaseDb.getInstance();
         Map<String, Object> currentUser = FirebaseDb.getCurrentUser();
-        if (currentUser == null)
-        {
-            ((MainActivity)getActivity()).hideSignedInMenuItems();
+
+        if (currentUser == null) {
+            ((MainActivity) getActivity()).hideSignedInMenuItems();
         }
-        firebaseDb.getAllPosts(new FirebaseCallbacks() {
-            @Override
-            public void onPostsLoaded(ArrayList postsInDb) {
-                posts = postsInDb;
-                recyclerView = view.findViewById(R.id.feed_view);
-                recyclerView.setHasFixedSize(true);
-                recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-                recyclerView.setAdapter(new FeedAdapter(context, posts));
-            }
-        });
 
-        firebaseDb.listenForUpdates(new FirebaseCallbacks() {
-            @Override
-            public void newPosts() {
-                firebaseDb.getAllPosts(new FirebaseCallbacks() {
-                    @Override
-                    public void onPostsLoaded(ArrayList posts) {
-                        FeedAdapter feedAdapter = (FeedAdapter) recyclerView.getAdapter();
-                        feedAdapter.insert(posts);
-                        recyclerView.getAdapter().notifyItemInserted(0);
-                    }
-                });
-            }
-        });
 
-        return view;
-    }
+            firebaseDb.getAllPosts(new FirebaseCallbacks() {
+                @Override
+                public void onPostsLoaded(ArrayList postsInDb) {
+                    posts = postsInDb;
+                    recyclerView = view.findViewById(R.id.feed_view);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                    recyclerView.setAdapter(new FeedAdapter(context, posts));
+                }
+            });
+
+            firebaseDb.listenForUpdates(new FirebaseCallbacks() {
+                @Override
+                public void newPosts() {
+                    firebaseDb.getAllPosts(new FirebaseCallbacks() {
+                        @Override
+                        public void onPostsLoaded(ArrayList posts) {
+                            FeedAdapter feedAdapter = (FeedAdapter) recyclerView.getAdapter();
+                            feedAdapter.insert(posts);
+                            recyclerView.getAdapter().notifyItemInserted(0);
+                        }
+                    });
+                }
+            });
+
+            return view;
+        }
 
     @Override
     public void onClick(int position) {
 
     }
+
+
+
 }

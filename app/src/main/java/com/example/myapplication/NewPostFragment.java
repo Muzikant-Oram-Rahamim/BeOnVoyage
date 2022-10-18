@@ -99,9 +99,8 @@ public class NewPostFragment extends Fragment {
 
 //        Get fragment's elements
 
-
-        TextInputLayout postDescriptionLayout = view.findViewById(R.id.new_post_desc_layout);
-        TextInputEditText postDescriptionField = view.findViewById(R.id.new_post_desc);
+        TextInputEditText detailsField = view.findViewById(R.id.details);
+        TextInputEditText cityField = view.findViewById(R.id.city);
 
         Button postButton = (Button) view.findViewById(R.id.new_post_publish_post);
 
@@ -110,7 +109,8 @@ public class NewPostFragment extends Fragment {
 
 
         Map<String, Object> currentUser = FirebaseDb.getCurrentUser();
-
+        cityField.setText(currentUser.get("City").toString());
+        detailsField.setText(currentUser.get("Details").toString());
 
         // Upload image
         newPostImageView = view.findViewById(R.id.new_post_image);
@@ -130,19 +130,23 @@ public class NewPostFragment extends Fragment {
                 loader.setVisibility(View.VISIBLE);
                 boolean hasErrors = false;
                 Map<String, Object> postData = new HashMap<>();
-                postData.put("email", FirebaseDb.getCurrentUser().get("email").toString());
+                postData.put("Email", FirebaseDb.getCurrentUser().get("Email").toString());
                 postData.put("timestamp", new Timestamp(System.currentTimeMillis()));
 
-                if (postDescriptionField.getEditableText().toString().isEmpty()) {
-                    postDescriptionLayout.setError("Required");
+                if (cityField.getEditableText().toString().isEmpty()) {
+
+                    hasErrors = true;
+                }
+                else if (detailsField.getEditableText().toString().isEmpty()){
                     hasErrors = true;
                 } else {
-                    postData.put("post_description", postDescriptionField.getEditableText().toString());
+                    postData.put("City", cityField.getEditableText().toString());
+                    postData.put("Details", detailsField.getEditableText().toString());
                 }
-//                if (bitmap == null) {
-//                    Toast.makeText(getActivity(), "Please add an image", Toast.LENGTH_SHORT).show();
-//                    hasErrors = true;
-//                }
+                if (bitmap == null) {
+                Toast.makeText(getActivity(), "Please add an image", Toast.LENGTH_SHORT).show();
+                    hasErrors = true;
+                }
                 if (!hasErrors) {
                     FirebaseDb firebaseDb = FirebaseDb.getInstance();
                     firebaseDb.addPost(postData, new FirebaseCallbacks() {
@@ -168,6 +172,7 @@ public class NewPostFragment extends Fragment {
         });
 
         return view;
+
     }
 
     @Override
@@ -179,9 +184,6 @@ public class NewPostFragment extends Fragment {
             newPostImageView.setImageURI(imageUri);
         }
 
-//        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-//            bitmap = (Bitmap) data.getExtras().get("data");
-//            newPostImageView.setImageBitmap(bitmap);
-//        }
+
     }
 }

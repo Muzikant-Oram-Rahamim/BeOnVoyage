@@ -162,7 +162,7 @@ public class FirebaseDb {
     public void updateUserData(Map<String, Object> newUserData, FirebaseCallbacks callbacks) {
 
         db.collection("users")
-                .document((String) currentUser.get("Email"))
+                .document((String) newUserData.get("Email"))
                 .update(newUserData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

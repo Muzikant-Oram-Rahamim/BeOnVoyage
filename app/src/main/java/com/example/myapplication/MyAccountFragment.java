@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -130,11 +131,12 @@ public class MyAccountFragment extends Fragment {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                boolean hasErrors = false;
 
                 if (!passwordField.getEditableText().toString().equals(""))
                 {
                     if (!passwordField.getEditableText().toString().equals(passwordValidateField.getEditableText().toString())) {
+
                         System.out.println("Passwords don't match");
                         Toast.makeText(getActivity(), "Passwords don't match", Toast.LENGTH_SHORT).show();
                     } else {
@@ -153,16 +155,34 @@ public class MyAccountFragment extends Fragment {
                     currentUser.put("Details", detailsField.getEditableText().toString());
                 }
 
-                FirebaseDb firebaseDb = FirebaseDb.getInstance();
-                firebaseDb.updateUserData(currentUser, new FirebaseCallbacks() {
-                    @Override
-                    public void userUpdated() {
-                        Toast.makeText(getActivity(), "Details Saved", Toast.LENGTH_SHORT).show();
-                    }
-                });
+
+
+                if (!hasErrors) {
+                    FirebaseDb firebaseDb = FirebaseDb.getInstance();
+                    firebaseDb.updateUserData(currentUser, new FirebaseCallbacks() {
+                        @Override
+                        public void userUpdated() {
+                            Toast.makeText(getActivity(), "Details Saved", Toast.LENGTH_SHORT).show();
+                            if (!isGuide.isChecked()) {
+                                ((MainActivity) getActivity()).notAGuide();
+                            }
+                            else{
+                                ((MainActivity) getActivity()).updateMenuOnSignIn();
+                            }
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            fragmentManager
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_container, new FeedFragment())
+                                    .commit();
+                            fragmentManager.popBackStackImmediate();
+                        }
+                    });
+                }
+
             }
         });
 
         return view;
     }
+
 }
