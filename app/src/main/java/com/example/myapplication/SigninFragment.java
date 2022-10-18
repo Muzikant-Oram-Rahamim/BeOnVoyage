@@ -3,9 +3,11 @@ package com.example.myapplication;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Patterns;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,9 +16,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.FileInputStream;
@@ -46,7 +51,10 @@ public class SigninFragment extends Fragment {
     private String mParam2;
 
     private TextInputEditText emailField,passwordField;
+    private CircularProgressIndicator loader;
+    private Button signinButton;
     private FirebaseAuth mAuth;
+
 
     public SigninFragment() {
         // Required empty public constructor
@@ -85,51 +93,92 @@ public class SigninFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_signin, container, false);
 
+        //Auth
+        mAuth = FirebaseAuth.getInstance();
+
         // Elements
-        TextInputEditText emailField = view.findViewById(R.id.signin_email);
-        TextInputEditText passwordField = view.findViewById(R.id.signin_password);
-        CircularProgressIndicator loader = view.findViewById(R.id.signin_loader);
-        Button signinButton = view.findViewById(R.id.signin_button);
+        emailField = view.findViewById(R.id.signin_email);
+        passwordField = view.findViewById(R.id.signin_password);
+        loader = view.findViewById(R.id.signin_loader);
+        signinButton = view.findViewById(R.id.signin_button);
 
         signinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view2) {
-                loader.setVisibility(View.VISIBLE);
-                FirebaseDb firebaseDb = FirebaseDb.getInstance();
-                firebaseDb.signIn(
-                        emailField.getEditableText().toString(),
-                        passwordField.getEditableText().toString(),
-                        new FirebaseCallbacks() {
-                            @Override
-                            public void onSignIn() {
-                                System.out.println("Signed In");
-
-                                Map<String, String> creds = new HashMap<>();
-                                creds.put("Email", emailField.getEditableText().toString());
-                                creds.put("Password", passwordField.getEditableText().toString());
-
-                                    ((MainActivity) getActivity()).updateMenuOnSignIn();
-
-
-                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                fragmentManager
-                                        .beginTransaction()
-                                        .replace(R.id.fragment_container, new FeedFragment())
-                                        .commit();
-                                fragmentManager.popBackStackImmediate();
-                            }
-
-                            @Override
-                            public void onSignInFailed(String errorMessage) {
-                                loader.setVisibility(View.GONE);
-                                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                );
+                userLogin();
             }
         });
 
         return view;
+    }
+
+    private void userLogin(){
+        String email = emailField.getText().toString().trim();
+        String password =passwordField.getText().toString().trim();
+
+        if (password.isEmpty()){
+            passwordField.setError("Password is required !");
+            passwordField.requestFocus();
+            return;
+        }
+        if (email.isEmpty()){
+            emailField.setError("Email is required !");
+            emailField.requestFocus();
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+        {
+            emailField.setError("Please provide valid email !");
+            emailField.requestFocus();
+            return;
+        }
+        if (password.length() < 6){
+            passwordField.setError("Min password length should be 6 characters !");
+            passwordField.requestFocus();
+            return;
+        }
+
+        mAuth.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()){
+                        loader.setVisibility(View.VISIBLE);
+                        FirebaseDb firebaseDb = FirebaseDb.getInstance();
+                        firebaseDb.signIn(
+                                emailField.getEditableText().toString(),
+                                passwordField.getEditableText().toString(),
+                                new FirebaseCallbacks() {
+                                    @Override
+                                    public void onSignIn() {
+                                        System.out.println("Signed In");
+
+                                        Map<String, String> creds = new HashMap<>();
+                                        creds.put("Email", emailField.getEditableText().toString());
+                                        creds.put("Password", passwordField.getEditableText().toString());
+
+                                        ((MainActivity) getActivity()).updateMenuOnSignIn();
+
+
+                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                        fragmentManager
+                                                .beginTransaction()
+                                                .replace(R.id.fragment_container, new FeedFragment())
+                                                .commit();
+                                        fragmentManager.popBackStackImmediate();
+                                    }
+
+                                    @Override
+                                    public void onSignInFailed(String errorMessage) {
+                                        loader.setVisibility(View.GONE);
+                                        Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                        );
+                    }
+                    }
+                });
+
     }
 
 }

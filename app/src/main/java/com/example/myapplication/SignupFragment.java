@@ -98,9 +98,6 @@ public class SignupFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 registerUser();
-
-
-
             }
         });
         return view;
