@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,7 +14,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.SetOptions;
 
 import org.w3c.dom.Text;
 
@@ -97,6 +101,16 @@ public class MyAccountFragment extends Fragment {
             if (currentUser.containsKey("Last name")) {
                 lastnameField.setText(currentUser.get("Last name").toString());
             }
+            if (currentUser.containsKey("Is guide")) {
+                if (currentUser.get("Is guide").equals(true)) {
+                    isGuide.setChecked(true);
+                    detailsField.setVisibility(View.VISIBLE);
+                    cityField.setVisibility(View.VISIBLE);
+                    cityField.setText(currentUser.get("City").toString());
+                    detailsField.setText(currentUser.get("Details").toString());
+                }
+            }
+
 
         }
         isGuide.setOnClickListener(new View.OnClickListener() {
@@ -117,25 +131,30 @@ public class MyAccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Map<String, Object> newUserData = new HashMap<>();
-                if (!passwordField.getEditableText().toString().equals("Password")) {
+
+                if (!passwordField.getEditableText().toString().equals(""))
+                {
                     if (!passwordField.getEditableText().toString().equals(passwordValidateField.getEditableText().toString())) {
                         System.out.println("Passwords don't match");
                         Toast.makeText(getActivity(), "Passwords don't match", Toast.LENGTH_SHORT).show();
                     } else {
-                        newUserData.put("Password", passwordField.getEditableText().toString());
+                        currentUser.put("Password", passwordField.getEditableText().toString());
                     }
                 }
-                if (!firstnameField.getEditableText().toString().equals("First name")) {
-                    newUserData.put("First name", firstnameField.getEditableText().toString());
+                if (!firstnameField.getEditableText().toString().equals("")) {
+                    currentUser.put("First name", firstnameField.getEditableText().toString());
                 }
-                if (!lastnameField.getEditableText().toString().equals("Last name")) {
-                    newUserData.put("Last name", lastnameField.getEditableText().toString());
+                if (!lastnameField.getEditableText().toString().equals("")) {
+                    currentUser.put("Last name", lastnameField.getEditableText().toString());
+                }
+                if (isGuide.isChecked()) {
+                    currentUser.put("Is guide", isGuide.isChecked());
+                    currentUser.put("City", cityField.getEditableText().toString());
+                    currentUser.put("Details", detailsField.getEditableText().toString());
                 }
 
-                
                 FirebaseDb firebaseDb = FirebaseDb.getInstance();
-                firebaseDb.updateUserData(newUserData, new FirebaseCallbacks() {
+                firebaseDb.updateUserData(currentUser, new FirebaseCallbacks() {
                     @Override
                     public void userUpdated() {
                         Toast.makeText(getActivity(), "Details Saved", Toast.LENGTH_SHORT).show();

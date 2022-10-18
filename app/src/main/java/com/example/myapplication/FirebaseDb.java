@@ -88,7 +88,7 @@ public class FirebaseDb {
                 });
     }
 
-    public boolean signUp(String firstN, String lastN, String email, String password, String validatePassword, FirebaseCallbacks callback) {
+    public boolean signUp(Boolean isGuide,String cityN,String detailsN, String firstN, String lastN, String email, String password, String validatePassword, FirebaseCallbacks callback) {
 
         if (!password.equals(validatePassword)) {
             return false;
@@ -101,6 +101,9 @@ public class FirebaseDb {
                     callback.onSignup(true);
                 } else {
                     Map<String, Object> user = new HashMap<>();
+                    user.put("Is guide", isGuide);
+                    user.put("City", cityN);
+                    user.put("Details", detailsN);
                     user.put("First name", firstN);
                     user.put("Last name", lastN);
                     user.put("Email", email);
@@ -159,7 +162,7 @@ public class FirebaseDb {
     public void updateUserData(Map<String, Object> newUserData, FirebaseCallbacks callbacks) {
 
         db.collection("users")
-                .document((String) currentUser.get("email"))
+                .document((String) currentUser.get("Email"))
                 .update(newUserData)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

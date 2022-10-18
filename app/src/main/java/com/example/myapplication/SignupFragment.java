@@ -75,7 +75,9 @@ public class SignupFragment extends Fragment {
         TextInputEditText validatePasswordField = view.findViewById(R.id.signup_validate_password);
         CircularProgressIndicator loader = view.findViewById(R.id.signup_loader);
         Button signupButton = view.findViewById(R.id.signup_button);
-
+        Boolean isGuide = false;
+        String city = "";
+        String details = "";
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +85,9 @@ public class SignupFragment extends Fragment {
                 FirebaseDb firebaseDb = FirebaseDb.getInstance();
                 boolean status;
                 status = firebaseDb.signUp(
+                        isGuide,
+                        city,
+                        details,
                         FnameField.getEditableText().toString(),
                         LnameField.getEditableText().toString(),
                         emailField.getEditableText().toString(),
