@@ -162,6 +162,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+  <!--
     <Button
         android:id="@+id/take_photo"
         android:layout_width="match_parent"
@@ -174,6 +175,7 @@
         android:id="@+id/profile_image"
         />
 
+-->
     <Button
         android:id="@+id/my_account_button"
         android:layout_width="match_parent"
