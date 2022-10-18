@@ -80,6 +80,7 @@ public class MyAccountFragment extends Fragment {
         TextInputEditText firstnameField = view.findViewById(R.id.my_account_firstname);
         TextInputEditText lastnameField = view.findViewById(R.id.my_account_lastname);
         TextInputEditText detailsField = view.findViewById(R.id.details);
+        TextInputEditText cityField = view.findViewById(R.id.city);
         CheckBox isGuide = view.findViewById(R.id.is_guide);
 
         Button updateButton = view.findViewById(R.id.my_account_button);
@@ -89,7 +90,7 @@ public class MyAccountFragment extends Fragment {
         if (currentUser == null) {
             emailField.setText("This screen is for signed-ing users!");
         } else {
-            emailField.setText((String)currentUser.get("email"));
+            emailField.setText((String)currentUser.get("Email"));
             if (currentUser.containsKey("First name")) {
                 firstnameField.setText(currentUser.get("First name").toString());
             }
@@ -98,16 +99,26 @@ public class MyAccountFragment extends Fragment {
             }
 
         }
-        if (isGuide.isChecked()) {
-            detailsField.setVisibility(View.VISIBLE);
-        }
+        isGuide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isGuide.isChecked()) {
+                    detailsField.setVisibility(View.VISIBLE);
+                    cityField.setVisibility(View.VISIBLE);
+                }
+                if (!isGuide.isChecked()) {
+                    detailsField.setVisibility(View.GONE);
+                    cityField.setVisibility(View.GONE);
+                }
+            }
+        });
 
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Map<String, Object> newUserData = new HashMap<>();
-                if (!passwordField.getEditableText().toString().equals("")) {
+                if (!passwordField.getEditableText().toString().equals("Password")) {
                     if (!passwordField.getEditableText().toString().equals(passwordValidateField.getEditableText().toString())) {
                         System.out.println("Passwords don't match");
                         Toast.makeText(getActivity(), "Passwords don't match", Toast.LENGTH_SHORT).show();
@@ -115,10 +126,10 @@ public class MyAccountFragment extends Fragment {
                         newUserData.put("Password", passwordField.getEditableText().toString());
                     }
                 }
-                if (!firstnameField.getEditableText().toString().equals("")) {
+                if (!firstnameField.getEditableText().toString().equals("First name")) {
                     newUserData.put("First name", firstnameField.getEditableText().toString());
                 }
-                if (!lastnameField.getEditableText().toString().equals("")) {
+                if (!lastnameField.getEditableText().toString().equals("Last name")) {
                     newUserData.put("Last name", lastnameField.getEditableText().toString());
                 }
 

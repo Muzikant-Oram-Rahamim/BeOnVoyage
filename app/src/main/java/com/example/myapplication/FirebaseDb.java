@@ -154,6 +154,8 @@ public class FirebaseDb {
         callbacks.signedOut();
     }
 
+
+
     public void updateUserData(Map<String, Object> newUserData, FirebaseCallbacks callbacks) {
 
         db.collection("users")

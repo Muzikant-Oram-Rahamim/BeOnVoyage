@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Manage fragments change
         switch (item.getItemId()) {
             case (R.id.feed):
+
                 fragmentManager.popBackStackImmediate();
                 fragmentManager
                         .beginTransaction()
@@ -153,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .commit();
                 break;
             case (R.id.signout):
+
                 FirebaseDb.getInstance().signOut(new FirebaseCallbacks() {
                     @Override
                     public void signedOut() {
@@ -169,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
-    private void hideSignedInMenuItems() {
+    public void hideSignedInMenuItems() {
         MenuItem newPostItem = navigationView.getMenu().findItem(R.id.new_post);
         MenuItem chatItem = navigationView.getMenu().findItem(R.id.chat_nav);
         MenuItem myAccountItem = navigationView.getMenu().findItem(R.id.my_account_nav);

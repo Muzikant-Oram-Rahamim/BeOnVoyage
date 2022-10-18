@@ -105,8 +105,8 @@ public class SignupFragment extends Fragment {
                                 fragmentManager
                                         .beginTransaction()
                                         .replace(R.id.fragment_container, new MyAccountFragment())
+                                        .addToBackStack("my_account")
                                         .commit();
-                                fragmentManager.popBackStackImmediate();
                             }
                         }
                 );

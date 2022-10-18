@@ -82,6 +82,11 @@ public class FeedFragment extends Fragment implements FeedAdapter.onItemClick {
 //        recyclerView.setAdapter(new FeedAdapter(context, posts));
 
         FirebaseDb firebaseDb = FirebaseDb.getInstance();
+        Map<String, Object> currentUser = FirebaseDb.getCurrentUser();
+        if (currentUser == null)
+        {
+            ((MainActivity)getActivity()).hideSignedInMenuItems();
+        }
         firebaseDb.getAllPosts(new FirebaseCallbacks() {
             @Override
             public void onPostsLoaded(ArrayList postsInDb) {

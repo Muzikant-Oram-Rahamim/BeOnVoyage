@@ -57,4 +57,5 @@
     <string name="take_photo">TAKE PHOTO</string>
     <string name="details">details</string>
     <string name="guide">Are you a local guide?</string>
+    <string name="city">city</string>
 </resources>
