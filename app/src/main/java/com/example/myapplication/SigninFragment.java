@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -43,6 +44,9 @@ public class SigninFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TextInputEditText emailField,passwordField;
+    private FirebaseAuth mAuth;
 
     public SigninFragment() {
         // Required empty public constructor

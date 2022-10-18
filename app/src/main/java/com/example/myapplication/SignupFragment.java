@@ -2,17 +2,23 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +31,14 @@ public class SignupFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private TextInputEditText FnameField,LnameField,emailField,passwordField,validatePasswordField;
+    private FirebaseAuth mAuth;
+    private CircularProgressIndicator loader;
+    private Boolean isGuide = false;
+    private String city = "";
+    private String details = "";
+    private boolean status;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -67,56 +81,116 @@ public class SignupFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_signup, container, false);
 
+
+        //Auth
+        mAuth = FirebaseAuth.getInstance();
+
         // Elements
-        TextInputEditText FnameField = view.findViewById(R.id.signup_firstname);
-        TextInputEditText LnameField = view.findViewById(R.id.signup_lastname);
-        TextInputEditText emailField = view.findViewById(R.id.signup_email);
-        TextInputEditText passwordField = view.findViewById(R.id.signup_password);
-        TextInputEditText validatePasswordField = view.findViewById(R.id.signup_validate_password);
-        CircularProgressIndicator loader = view.findViewById(R.id.signup_loader);
+        FnameField = view.findViewById(R.id.signup_firstname);
+        LnameField = view.findViewById(R.id.signup_lastname);
+        emailField = view.findViewById(R.id.signup_email);
+        passwordField = view.findViewById(R.id.signup_password);
+        validatePasswordField = view.findViewById(R.id.signup_validate_password);
+        loader = view.findViewById(R.id.signup_loader);
         Button signupButton = view.findViewById(R.id.signup_button);
-        Boolean isGuide = false;
-        String city = "";
-        String details = "";
+
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loader.setVisibility(View.VISIBLE);
-                FirebaseDb firebaseDb = FirebaseDb.getInstance();
-                boolean status;
-                status = firebaseDb.signUp(
-                        isGuide,
-                        city,
-                        details,
-                        FnameField.getEditableText().toString(),
-                        LnameField.getEditableText().toString(),
-                        emailField.getEditableText().toString(),
-                        passwordField.getEditableText().toString(),
-                        validatePasswordField.getEditableText().toString(),
-                        new FirebaseCallbacks() {
-                            @Override
-                            public void onSignup(boolean isExists) {
-                                if (isExists) {
-                                    Toast.makeText(getActivity(), "This email is already in use", Toast.LENGTH_SHORT).show();
-                                    loader.setVisibility(View.GONE);
-                                }
-                            }
+                registerUser();
 
-                            @Override
-                            public void onSignIn() {
-                                System.out.println("Signed In");
-                                ((MainActivity)getActivity()).updateMenuOnSignIn();
-                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                fragmentManager
-                                        .beginTransaction()
-                                        .replace(R.id.fragment_container, new MyAccountFragment())
-                                        .addToBackStack("my_account")
-                                        .commit();
-                            }
-                        }
-                );
+
+
             }
         });
         return view;
+
+
     }
+    private void registerUser(){
+        String email = emailField.getText().toString().trim();
+        String firstN =FnameField.getText().toString().trim();
+        String lastN =LnameField.getText().toString().trim();
+        String password =passwordField.getText().toString().trim();
+
+        if (firstN.isEmpty()){
+            FnameField.setError("First name is required !");
+            FnameField.requestFocus();
+            return;
+        }
+        if (lastN.isEmpty()){
+            LnameField.setError("Last name is required !");
+            LnameField.requestFocus();
+            return;
+        }
+        if (password.isEmpty()){
+            passwordField.setError("Password is required !");
+            passwordField.requestFocus();
+            return;
+        }
+        if (email.isEmpty()){
+            emailField.setError("Email is required !");
+            emailField.requestFocus();
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+        {
+            emailField.setError("Please provide valid email !");
+            emailField.requestFocus();
+            return;
+        }
+        if (password.length() < 6){
+            passwordField.setError("Min password length should be 6 characters !");
+            passwordField.requestFocus();
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(email,password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            loader.setVisibility(View.VISIBLE);
+                            FirebaseDb firebaseDb = FirebaseDb.getInstance();
+                            status = firebaseDb.signUp(
+                                    isGuide,
+                                    city,
+                                    details,
+                                    FnameField.getEditableText().toString(),
+                                    LnameField.getEditableText().toString(),
+                                    emailField.getEditableText().toString(),
+                                    passwordField.getEditableText().toString(),
+                                    validatePasswordField.getEditableText().toString(),
+                                    new FirebaseCallbacks() {
+                                        @Override
+                                        public void onSignup(boolean isExists) {
+                                            if (isExists) {
+                                                Toast.makeText(getActivity(), "This email is already in use", Toast.LENGTH_SHORT).show();
+                                                loader.setVisibility(View.GONE);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onSignIn() {
+                                            System.out.println("Signed In");
+                                            ((MainActivity)getActivity()).updateMenuOnSignIn();
+                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                            fragmentManager
+                                                    .beginTransaction()
+                                                    .replace(R.id.fragment_container, new MyAccountFragment())
+                                                    .addToBackStack("my_account")
+                                                    .commit();
+                                        }
+                                    }
+                            );
+                        }
+                    }
+                });
+
+
+
+
+
+    }
+
 }

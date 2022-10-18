@@ -49,12 +49,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedAdapterHol
             userEmail = posts.get(position).get("Email").toString();
         }
 
-       /* holder.firstN.setText(posts.get(position).get("First name").toString());
+        holder.firstN.setText(posts.get(position).get("First name").toString());
         holder.lastN.setText(posts.get(position).get("Last name").toString());
         holder.city.setText(posts.get(position).get("City").toString());
         holder.details.setText(posts.get(position).get("Details").toString());
 
-        */
+
 
 
         if (firebaseDb.isSignedIn() && firebaseDb.getCurrentUser().get("Email").toString().equals(userEmail)) {
