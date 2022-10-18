@@ -25,6 +25,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedAdapterHol
     ArrayList<Map<String, Object>> posts;
     FirebaseDb firebaseDb = FirebaseDb.getInstance();
 
+
     public FeedAdapter(Context context, ArrayList<Map<String, Object>> postData) {
         this.inflater = LayoutInflater.from(context);
         this.posts = postData;
@@ -43,16 +44,22 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedAdapterHol
 
     @Override
     public void onBindViewHolder(@NonNull FeedAdapterHolder holder, @SuppressLint("RecyclerView") int position) {
+
+        holder.getAdapterPosition();
         String userEmail = "";
 
         if (posts.get(position).get("Email") != null) {
             userEmail = posts.get(position).get("Email").toString();
         }
+        String first_name =posts.get(position).get("First name").toString();
+        String last_name = posts.get(position).get("Last name").toString();
+        String city = posts.get(position).get("City").toString();
+        String details = posts.get(position).get("Details").toString();
 
-        holder.firstN.setText(posts.get(position).get("First name").toString());
-        holder.lastN.setText(posts.get(position).get("Last name").toString());
-        holder.city.setText(posts.get(position).get("City").toString());
-        holder.details.setText(posts.get(position).get("Details").toString());
+        holder.firstN.setText(first_name);
+        holder.lastN.setText(last_name);
+        holder.city.setText(city);
+        holder.details.setText(details);
 
 
 
